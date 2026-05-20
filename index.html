@@ -262,19 +262,119 @@
     line-height: 1.5;
   }
 
-  .both-why-box {
+  /* Bundle Card (แนะนำ 2 สูตร) */
+  .bundle-card {
     background: white;
-    padding: 20px;
     border-radius: var(--radius);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .bundle-top {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: var(--cream);
+  }
+  .bundle-img {
+    flex: 1.2;
+  }
+  .bundle-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    mix-blend-mode: multiply; /* ทำให้รูปเนียนไปกับพื้นหลัง */
+  }
+  .bundle-price-box {
+    flex: 1;
+    padding-left: 16px;
+    text-align: left;
+  }
+  .bundle-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-her);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .bundle-sub {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.4;
+  }
+  .bundle-body {
+    padding: 20px;
     font-size: 14.5px;
     color: var(--ink-mid);
-    line-height: 1.6;
-    border: 1px solid rgba(45,36,34,0.05);
+    line-height: 1.7;
+    border-top: 1px solid rgba(45,36,34,0.05);
   }
-  .both-why-box strong { color: var(--ink); font-weight: 700; }
+  .bundle-body strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
 
+  .grid-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-light);
+    text-align: center;
+    margin-bottom: 12px;
+    margin-top: 8px;
+  }
+
+  /* สินค้าเดี่ยวแบบ Grid วางเรียงครึ่งๆ 2 อัน */
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .mini-product-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .mini-product-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #fdfdfd;
+  }
+  .mini-product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mini-product-info {
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .mini-product-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .mini-product-sub {
+    font-size: 12px;
+    color: var(--ink-mid);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .mini-product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: auto;
+  }
+
+
+  /* รูปแบบการ์ดผลลัพธ์แบบเดี่ยวปกติ */
   .product-card {
     border-radius: var(--radius);
     overflow: hidden;
@@ -282,7 +382,6 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.05);
     background: white;
   }
-  
   .card-head-her, .card-head-pops {
     padding: 24px 20px;
     display: flex;
@@ -527,6 +626,15 @@
     .product-image-large { max-width: 100%; margin-bottom: 12px; }
     .card-head-her h3, .card-head-pops h3 { font-size: 24px; }
     .price-center .amt { font-size: 32px; }
+    
+    .bundle-top { padding: 16px; }
+    .bundle-price { font-size: 28px; }
+    .bundle-body { padding: 16px; font-size: 14px; }
+
+    /* Mobile font tweaks for Mini cards */
+    .mini-product-title { font-size: 15px; }
+    .mini-product-sub { font-size: 11px; margin-bottom: 10px; }
+    .mini-product-price { font-size: 16px; }
   }
 </style>
 </head>
@@ -846,59 +954,49 @@
         <div class="result-tagline">${rec.tagline}</div>
       </div>
       
-      <div class="both-why-box">
-        ${rec.why}
+      <!-- แนะนำแพ็คคู่ (ใหม่) -->
+      <div class="bundle-card">
+        <div class="bundle-top">
+          <div class="bundle-img">
+            <img src="./hernestproducts.png" alt="Her Tea & Pops Tea">
+          </div>
+          <div class="bundle-price-box">
+            <div class="card-pill" style="margin-bottom: 8px; background: var(--ink); color: white;">จัดเซ็ตคู่</div>
+            <div class="bundle-price">฿1,280</div>
+            <div class="bundle-sub">เซ็ตดื่ม 15 วัน<br>ครอบคลุม 2 สูตร</div>
+          </div>
+        </div>
+        <div class="bundle-body">
+          ${rec.why}
+        </div>
       </div>
 
-      <div class="product-card">
-        <div class="card-head-her">
-          <div class="product-image-large">
+      <div class="grid-title">หรือเลือกแก้ปัญหาเฉพาะจุด</div>
+
+      <!-- สินค้าเดี่ยวเรียงกันแบบ Grid แบบตัวอย่าง -->
+      <div class="product-grid">
+        <!-- Her Tea -->
+        <div class="mini-product-card">
+          <div class="mini-product-img">
             <img src="./hertea.jpg" alt="Her Tea">
           </div>
-          <div class="card-head-text">
-            <div class="card-pill">ดื่มเช้า หรือก่อนนอน</div>
-            <h3>Her Tea 🌹</h3>
-            <p>Hormone Detox · PMS Relief</p>
+          <div class="mini-product-info" style="background: var(--color-her-light);">
+            <div class="mini-product-title">Her Tea 🌹</div>
+            <div class="mini-product-sub">Hormone Detox<br>PMS Relief</div>
+            <div class="mini-product-price">${rec.prices_her[0].amt}</div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="benefits">
-            ${rec.benefits_her.map(b => `<div class="benefit"><div class="dot-her"></div><span>${b}</span></div>`).join('')}
-          </div>
-          
-          <div class="price-center price-center-her">
-            <span class="amt">${rec.prices_her[0].amt}</span>
-            <span class="lbl">${rec.prices_her[0].lbl}</span>
-            ${rec.prices_her[1] ? `
-            <div class="price-promo">
-              <span class="amt-promo">${rec.prices_her[1].amt}</span>
-              <span>${rec.prices_her[1].lbl}</span>
-            </div>` : ''}
-          </div>
-
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="card-head-pops">
-          <div class="product-image-large">
+        
+        <!-- Pops Tea -->
+        <div class="mini-product-card">
+          <div class="mini-product-img">
             <img src="./pop tea.jpg" alt="Pops Tea">
           </div>
-          <div class="card-head-text">
-            <div class="card-pill">ดื่มหลังมื้ออาหาร</div>
-            <h3>Pops Tea 🧡</h3>
-            <p>Androgen Balance · Anti-Acne</p>
+          <div class="mini-product-info" style="background: var(--color-pops-light);">
+            <div class="mini-product-title">Pops Tea 🧡</div>
+            <div class="mini-product-sub">Androgen Balance<br>Anti-Acne</div>
+            <div class="mini-product-price">${rec.prices_pops[0].amt}</div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="benefits">
-            ${rec.benefits_pops.map(b => `<div class="benefit"><div class="dot-pops"></div><span>${b}</span></div>`).join('')}
-          </div>
-
-          <div class="price-center price-center-pops">
-            <span class="amt">${rec.prices_pops[0].amt}</span>
-            <span class="lbl">${rec.prices_pops[0].lbl}</span>
-          </div>
-
         </div>
       </div>
       
